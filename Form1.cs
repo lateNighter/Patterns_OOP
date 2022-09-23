@@ -13,7 +13,8 @@ namespace Patterns_Drawer
 {
     public partial class Form1 : Form
     {
-        public List<Figure> figures { get; set; }
+        Canvas my_canvas;
+        UndoRedo undoRedo;
 
         private MouseState mouseState;
 
@@ -24,7 +25,9 @@ namespace Patterns_Drawer
         public Form1()
         {
             InitializeComponent();
-            figures = new List<Figure>();
+            my_canvas = new Canvas();
+            undoRedo = new UndoRedo(my_canvas);
+            undoRedo.SetStateForUndoRedo();
 
             Line.LineCreator lineCreator = new Line.LineCreator();
             Circle.CircleCreator circleCreator = new Circle.CircleCreator();
@@ -75,10 +78,11 @@ namespace Patterns_Drawer
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (drawn != null)
-                figures.Add(drawn);
+                my_canvas.Add(drawn);
 
             drawn = null;
             mouseState.Reset();
+            undoRedo.SetStateForUndoRedo();
         }
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -149,38 +153,6 @@ namespace Patterns_Drawer
             //}
         }
 
-        //private void Validate(Bitmap bm,Stack<Point> sp,int x,int y,Color old_color,Color new_color)
-        //{
-        //    Color cx = bm.GetPixel(x, y);
-        //    if (cx == old_color)
-        //    {
-        //        sp.Push(new Point(x, y));
-        //        bm.SetPixel(x, y, new_color);
-        //    }
-        //}
-        //public void Fill(Bitmap bm,int x,int y,Color new_color)
-        //{
-        //    Color old_color = bm.GetPixel(x, y);
-        //    Stack<Point> pixel = new Stack<Point>();
-        //    pixel.Push(new Point(x, y));
-        //    bm.SetPixel(x, y, new_color);
-        //    if (old_color == new_color) return;
-        //    while (pixel.Count > 0)
-        //    {
-        //        Point pt = (Point)pixel.Pop();
-        //        if (pt.X > 0 && pt.Y > 0 && pt.X < bm.Width - 1 && pt.Y < bm.Height - 1)
-        //        {
-        //            Validate(bm, pixel, pt.X - 1, pt.Y, old_color, new_color);
-        //            Validate(bm, pixel, pt.X , pt.Y - 1, old_color, new_color);
-        //            Validate(bm, pixel, pt.X + 1, pt.Y, old_color, new_color);
-        //            Validate(bm, pixel, pt.X, pt.Y + 1, old_color, new_color);
-
-        //        }
-        //    }
-        //}
-
-      
-
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -190,7 +162,7 @@ namespace Patterns_Drawer
                 if (drawn != null)
                     drawn.Draw(g, cur_color);
 
-                foreach (Figure figure in figures)
+                foreach (Figure figure in my_canvas.Figures)
                     figure.Draw(g, cur_color);
             }
             catch { }
@@ -216,5 +188,16 @@ namespace Patterns_Drawer
             item.BackColor = Color.Yellow;
         }
 
+        private void undoBtn_Click(object sender, EventArgs e)
+        {
+            undoRedo.Undo(1);
+            canvas.Refresh();
+        }
+
+        private void redoBtn_Click(object sender, EventArgs e)
+        {
+            undoRedo.Redo(1);
+            canvas.Refresh();
+        }
     }
 }

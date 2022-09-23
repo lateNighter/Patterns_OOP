@@ -9,3 +9,14 @@ C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\obj\Debug\Patterns
 C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\obj\Debug\Patterns_Drawer.exe
 C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\obj\Debug\Patterns_Drawer.pdb
 C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\obj\Debug\Patterns_Drawer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\bin\Debug\Patterns_Drawer.exe.config
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\bin\Debug\Patterns_Drawer.exe
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\bin\Debug\Patterns_Drawer.pdb
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.csproj.AssemblyReference.cache
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.Form1.resources
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.Properties.Resources.resources
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.csproj.GenerateResource.cache
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.csproj.CoreCompileInputs.cache
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.exe
+C:\Users\Arr\Documents\4 курс\ПАК ПС\Patterns_Drawer\Patterns_OOP\obj\Debug\Patterns_Drawer.pdb

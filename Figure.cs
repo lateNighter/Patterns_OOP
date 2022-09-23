@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Patterns_Drawer
 {
+
     public abstract class Figure : IDrawable
     {
         public float x { get; set; } = 0;

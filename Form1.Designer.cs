@@ -32,7 +32,7 @@ namespace Patterns_Drawer
             this.panel1 = new System.Windows.Forms.Panel();
             this.minusBtn = new System.Windows.Forms.Button();
             this.plusBtn = new System.Windows.Forms.Button();
-            this.reduBtn = new System.Windows.Forms.Button();
+            this.redoBtn = new System.Windows.Forms.Button();
             this.undoBtn = new System.Windows.Forms.Button();
             this.lineBtn = new System.Windows.Forms.Button();
             this.eraserBtn = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@ namespace Patterns_Drawer
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.minusBtn);
             this.panel1.Controls.Add(this.plusBtn);
-            this.panel1.Controls.Add(this.reduBtn);
+            this.panel1.Controls.Add(this.redoBtn);
             this.panel1.Controls.Add(this.undoBtn);
             this.panel1.Controls.Add(this.lineBtn);
             this.panel1.Controls.Add(this.eraserBtn);
@@ -102,20 +102,21 @@ namespace Patterns_Drawer
             this.plusBtn.TabIndex = 12;
             this.plusBtn.UseVisualStyleBackColor = false;
             // 
-            // reduBtn
+            // redoBtn
             // 
-            this.reduBtn.BackColor = System.Drawing.Color.Transparent;
-            this.reduBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.redo;
-            this.reduBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.reduBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.reduBtn.FlatAppearance.BorderSize = 0;
-            this.reduBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reduBtn.ForeColor = System.Drawing.Color.Black;
-            this.reduBtn.Location = new System.Drawing.Point(1281, 3);
-            this.reduBtn.Name = "reduBtn";
-            this.reduBtn.Size = new System.Drawing.Size(40, 40);
-            this.reduBtn.TabIndex = 11;
-            this.reduBtn.UseVisualStyleBackColor = false;
+            this.redoBtn.BackColor = System.Drawing.Color.Transparent;
+            this.redoBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.redo;
+            this.redoBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.redoBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.redoBtn.FlatAppearance.BorderSize = 0;
+            this.redoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.redoBtn.ForeColor = System.Drawing.Color.Black;
+            this.redoBtn.Location = new System.Drawing.Point(1281, 3);
+            this.redoBtn.Name = "redoBtn";
+            this.redoBtn.Size = new System.Drawing.Size(40, 40);
+            this.redoBtn.TabIndex = 11;
+            this.redoBtn.UseVisualStyleBackColor = false;
+            this.redoBtn.Click += new System.EventHandler(this.redoBtn_Click);
             // 
             // undoBtn
             // 
@@ -131,6 +132,7 @@ namespace Patterns_Drawer
             this.undoBtn.Size = new System.Drawing.Size(40, 40);
             this.undoBtn.TabIndex = 10;
             this.undoBtn.UseVisualStyleBackColor = false;
+            this.undoBtn.Click += new System.EventHandler(this.undoBtn_Click);
             // 
             // lineBtn
             // 
@@ -328,7 +330,7 @@ namespace Patterns_Drawer
         private System.Windows.Forms.Button undoBtn;
         private System.Windows.Forms.Button minusBtn;
         private System.Windows.Forms.Button plusBtn;
-        private System.Windows.Forms.Button reduBtn;
+        private System.Windows.Forms.Button redoBtn;
     }
 }
 

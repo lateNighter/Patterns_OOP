@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Patterns_Drawer
 {
+
     class Rectangle : Figure
     {
         public float width { get; set; }

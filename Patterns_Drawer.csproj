@@ -33,8 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Canvas.cs" />
+    <Compile Include="Caretaker.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="Creator.cs" />
     <Compile Include="Figure.cs" />
@@ -56,12 +60,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IDrawable.cs" />
+    <Compile Include="IUndoRedo.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="Memento.cs" />
+    <Compile Include="MementoOriginator.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="MouseState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rectangle.cs" />
+    <Compile Include="UndoRedo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
