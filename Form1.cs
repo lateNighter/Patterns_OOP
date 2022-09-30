@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Patterns_Drawer.Visitor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +22,10 @@ namespace Patterns_Drawer
         private Figure drawn = null;
         Color cur_color;
         Dictionary<string, Creator> fig_dict;
+        Dictionary<string, IVisitor> visitor_dict;
         Creator creator;
+        IVisitor visitor;
+        //bool selection=false;
         public Form1()
         {
             InitializeComponent();
@@ -32,9 +36,18 @@ namespace Patterns_Drawer
             Line.LineCreator lineCreator = new Line.LineCreator();
             Circle.CircleCreator circleCreator = new Circle.CircleCreator();
             Rectangle.RectCreator rectCreator = new Rectangle.RectCreator();
-            creator = rectCreator;
-            fig_dict = new Dictionary<string, Creator> { { "select", null }, { "line", lineCreator }, { "circle", circleCreator }, { "rect", rectCreator } };
 
+            SelectVisitor selectVisitor = new SelectVisitor();
+            MoveVisitor moveVisitor = new MoveVisitor();
+            FillVisitor fillVisitor = new FillVisitor();
+            ResizeVisitor plusVisitor = new ResizeVisitor(10);
+            ResizeVisitor minusVisitor = new ResizeVisitor(-10);
+            RemoveVisitor removeVisitor = new RemoveVisitor(my_canvas);
+
+
+            creator = rectCreator;
+            fig_dict = new Dictionary<string, Creator> { { "line", lineCreator }, { "circle", circleCreator }, { "rect", rectCreator } };
+            visitor_dict = new Dictionary<string, IVisitor> { { "select", selectVisitor }, { "move", moveVisitor }, { "fill", fillVisitor }, { "plus", plusVisitor }, { "minus", minusVisitor }, { "erase", removeVisitor } };
 
             mouseState = new MouseState();
 
@@ -47,6 +60,14 @@ namespace Patterns_Drawer
             string tag = ((Button)sender).Tag.ToString();
             creator = fig_dict[tag];
             handleToolChange(tag);
+            visitor = null;
+        }
+        private void visitorBtn_Click(object sender, EventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+            visitor = visitor_dict[tag];
+            handleToolChange(tag);
+            creator = null;
         }
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
@@ -55,10 +76,21 @@ namespace Patterns_Drawer
             mouseState.SY = e.Y;
             mouseState.Pressed = true;
 
-            if (!mouseState.Pressed) return;
+            //if (!mouseState.Pressed) return;//TODO
             if (creator!=null)
             {
                 drawn = creator.Create(mouseState.SX, mouseState.SY, (mouseState.EX - mouseState.SX), (mouseState.EY - mouseState.SY));
+            }
+
+            if (visitor != null)
+            {
+                visitor.SetXY(mouseState.SX, mouseState.SY);
+                foreach (Figure figure in my_canvas.Figures.ToArray())
+                {
+                    visitor.Visit(figure);
+                }
+                canvas.Refresh();
+                undoRedo.SetStateForUndoRedo();
             }
         }
 
@@ -78,11 +110,14 @@ namespace Patterns_Drawer
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (drawn != null)
+            {
                 my_canvas.Add(drawn);
+                undoRedo.SetStateForUndoRedo();
+            }
+                
 
             drawn = null;
             mouseState.Reset();
-            undoRedo.SetStateForUndoRedo();
         }
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -163,7 +198,7 @@ namespace Patterns_Drawer
                     drawn.Draw(g, cur_color);
 
                 foreach (Figure figure in my_canvas.Figures)
-                    figure.Draw(g, cur_color);
+                    figure.Draw(g, cur_color);//figure.color
             }
             catch { }
         }
@@ -178,11 +213,15 @@ namespace Patterns_Drawer
         private void handleToolChange(string tag)
         {
             pointerBtn.BackColor = panel1.BackColor;
+            moveBtn.BackColor = panel1.BackColor;
             lineBtn.BackColor = panel1.BackColor;
             circleBtn.BackColor = panel1.BackColor;
             squareBtn.BackColor = panel1.BackColor;
             fillBtn.BackColor = panel1.BackColor;
             eraserBtn.BackColor = panel1.BackColor;
+
+            plusBtn.BackColor = panel1.BackColor;
+            minusBtn.BackColor = panel1.BackColor;
 
             var item = panel1.Controls.Cast<Control>().FirstOrDefault(control => String.Equals(control.Tag, tag));
             item.BackColor = Color.Yellow;
@@ -199,5 +238,7 @@ namespace Patterns_Drawer
             undoRedo.Redo(1);
             canvas.Refresh();
         }
+
+        
     }
 }

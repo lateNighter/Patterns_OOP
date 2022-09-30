@@ -30,6 +30,7 @@ namespace Patterns_Drawer
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.moveBtn = new System.Windows.Forms.Button();
             this.minusBtn = new System.Windows.Forms.Button();
             this.plusBtn = new System.Windows.Forms.Button();
             this.redoBtn = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@ namespace Patterns_Drawer
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.moveBtn);
             this.panel1.Controls.Add(this.minusBtn);
             this.panel1.Controls.Add(this.plusBtn);
             this.panel1.Controls.Add(this.redoBtn);
@@ -72,6 +74,23 @@ namespace Patterns_Drawer
             this.panel1.Size = new System.Drawing.Size(1333, 48);
             this.panel1.TabIndex = 0;
             // 
+            // moveBtn
+            // 
+            this.moveBtn.BackColor = System.Drawing.Color.Transparent;
+            this.moveBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.move;
+            this.moveBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.moveBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.moveBtn.FlatAppearance.BorderSize = 0;
+            this.moveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.moveBtn.ForeColor = System.Drawing.Color.Black;
+            this.moveBtn.Location = new System.Drawing.Point(327, 3);
+            this.moveBtn.Name = "moveBtn";
+            this.moveBtn.Size = new System.Drawing.Size(40, 40);
+            this.moveBtn.TabIndex = 14;
+            this.moveBtn.Tag = "move";
+            this.moveBtn.UseVisualStyleBackColor = false;
+            this.moveBtn.Click += new System.EventHandler(this.visitorBtn_Click);
+            // 
             // minusBtn
             // 
             this.minusBtn.BackColor = System.Drawing.Color.Transparent;
@@ -81,11 +100,13 @@ namespace Patterns_Drawer
             this.minusBtn.FlatAppearance.BorderSize = 0;
             this.minusBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minusBtn.ForeColor = System.Drawing.Color.Black;
-            this.minusBtn.Location = new System.Drawing.Point(860, 3);
+            this.minusBtn.Location = new System.Drawing.Point(982, 3);
             this.minusBtn.Name = "minusBtn";
             this.minusBtn.Size = new System.Drawing.Size(40, 40);
             this.minusBtn.TabIndex = 13;
+            this.minusBtn.Tag = "minus";
             this.minusBtn.UseVisualStyleBackColor = false;
+            this.minusBtn.Click += new System.EventHandler(this.visitorBtn_Click);
             // 
             // plusBtn
             // 
@@ -96,11 +117,13 @@ namespace Patterns_Drawer
             this.plusBtn.FlatAppearance.BorderSize = 0;
             this.plusBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.plusBtn.ForeColor = System.Drawing.Color.Black;
-            this.plusBtn.Location = new System.Drawing.Point(814, 3);
+            this.plusBtn.Location = new System.Drawing.Point(936, 3);
             this.plusBtn.Name = "plusBtn";
             this.plusBtn.Size = new System.Drawing.Size(40, 40);
             this.plusBtn.TabIndex = 12;
+            this.plusBtn.Tag = "plus";
             this.plusBtn.UseVisualStyleBackColor = false;
+            this.plusBtn.Click += new System.EventHandler(this.visitorBtn_Click);
             // 
             // redoBtn
             // 
@@ -143,7 +166,7 @@ namespace Patterns_Drawer
             this.lineBtn.FlatAppearance.BorderSize = 0;
             this.lineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lineBtn.ForeColor = System.Drawing.Color.Black;
-            this.lineBtn.Location = new System.Drawing.Point(409, 3);
+            this.lineBtn.Location = new System.Drawing.Point(513, 3);
             this.lineBtn.Name = "lineBtn";
             this.lineBtn.Size = new System.Drawing.Size(40, 40);
             this.lineBtn.TabIndex = 9;
@@ -160,13 +183,13 @@ namespace Patterns_Drawer
             this.eraserBtn.FlatAppearance.BorderSize = 0;
             this.eraserBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.eraserBtn.ForeColor = System.Drawing.Color.Black;
-            this.eraserBtn.Location = new System.Drawing.Point(655, 3);
+            this.eraserBtn.Location = new System.Drawing.Point(759, 3);
             this.eraserBtn.Name = "eraserBtn";
             this.eraserBtn.Size = new System.Drawing.Size(40, 40);
             this.eraserBtn.TabIndex = 8;
             this.eraserBtn.Tag = "erase";
             this.eraserBtn.UseVisualStyleBackColor = false;
-            this.eraserBtn.Click += new System.EventHandler(this.menuBtn_Click);
+            this.eraserBtn.Click += new System.EventHandler(this.visitorBtn_Click);
             // 
             // pointerBtn
             // 
@@ -183,7 +206,7 @@ namespace Patterns_Drawer
             this.pointerBtn.TabIndex = 7;
             this.pointerBtn.Tag = "select";
             this.pointerBtn.UseVisualStyleBackColor = false;
-            this.pointerBtn.Click += new System.EventHandler(this.menuBtn_Click);
+            this.pointerBtn.Click += new System.EventHandler(this.visitorBtn_Click);
             // 
             // fillBtn
             // 
@@ -194,13 +217,13 @@ namespace Patterns_Drawer
             this.fillBtn.FlatAppearance.BorderSize = 0;
             this.fillBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fillBtn.ForeColor = System.Drawing.Color.Black;
-            this.fillBtn.Location = new System.Drawing.Point(591, 3);
+            this.fillBtn.Location = new System.Drawing.Point(695, 3);
             this.fillBtn.Name = "fillBtn";
             this.fillBtn.Size = new System.Drawing.Size(40, 40);
             this.fillBtn.TabIndex = 6;
             this.fillBtn.Tag = "fill";
             this.fillBtn.UseVisualStyleBackColor = false;
-            this.fillBtn.Click += new System.EventHandler(this.menuBtn_Click);
+            this.fillBtn.Click += new System.EventHandler(this.visitorBtn_Click);
             // 
             // squareBtn
             // 
@@ -211,7 +234,7 @@ namespace Patterns_Drawer
             this.squareBtn.FlatAppearance.BorderSize = 0;
             this.squareBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.squareBtn.ForeColor = System.Drawing.Color.Black;
-            this.squareBtn.Location = new System.Drawing.Point(527, 3);
+            this.squareBtn.Location = new System.Drawing.Point(631, 3);
             this.squareBtn.Name = "squareBtn";
             this.squareBtn.Size = new System.Drawing.Size(40, 40);
             this.squareBtn.TabIndex = 5;
@@ -228,7 +251,7 @@ namespace Patterns_Drawer
             this.circleBtn.FlatAppearance.BorderSize = 0;
             this.circleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.circleBtn.ForeColor = System.Drawing.Color.Black;
-            this.circleBtn.Location = new System.Drawing.Point(473, 3);
+            this.circleBtn.Location = new System.Drawing.Point(577, 3);
             this.circleBtn.Name = "circleBtn";
             this.circleBtn.Size = new System.Drawing.Size(40, 40);
             this.circleBtn.TabIndex = 4;
@@ -331,6 +354,7 @@ namespace Patterns_Drawer
         private System.Windows.Forms.Button minusBtn;
         private System.Windows.Forms.Button plusBtn;
         private System.Windows.Forms.Button redoBtn;
+        private System.Windows.Forms.Button moveBtn;
     }
 }
 

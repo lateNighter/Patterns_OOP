@@ -10,10 +10,7 @@ namespace Patterns_Drawer
     {
         private List<Figure> _ContainerState;
 
-        public List<Figure> ContainerState
-        {
-            get { return _ContainerState; }
-        }
+        public List<Figure> ContainerState => _ContainerState;
         public Memento(List<Figure> containerState)
         {
             this._ContainerState = containerState;

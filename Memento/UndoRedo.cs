@@ -10,7 +10,6 @@ namespace Patterns_Drawer
     {
         Caretaker _Caretaker = new Caretaker();
         MementoOriginator _MementoOriginator = null;
-        public event EventHandler EnableDisableUndoRedoFeature;
 
         public UndoRedo(Canvas container)
         {
@@ -29,10 +28,6 @@ namespace Patterns_Drawer
                 _MementoOriginator.setMemento(memento);
 
             }
-            if (EnableDisableUndoRedoFeature != null)
-            {
-                EnableDisableUndoRedoFeature(null, null);
-            }
         }
 
         public void Redo(int level)
@@ -47,20 +42,12 @@ namespace Patterns_Drawer
                 _MementoOriginator.setMemento(memento);
 
             }
-            if (EnableDisableUndoRedoFeature != null)
-            {
-                EnableDisableUndoRedoFeature(null, null);
-            }
         }
 
         public void SetStateForUndoRedo()
         {
             Memento memento = _MementoOriginator.getMemento();
             _Caretaker.InsertMementoForUndoRedo(memento);
-            if (EnableDisableUndoRedoFeature != null)
-            {
-                EnableDisableUndoRedoFeature(null, null);
-            }
         }
 
         public bool IsUndoPossible()

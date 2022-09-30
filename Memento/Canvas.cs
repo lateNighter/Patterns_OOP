@@ -19,5 +19,9 @@ namespace Patterns_Drawer
         {
             _figures.Add(figure);
         }
+        public void Remove(Figure figure)
+        {
+            _figures.Remove(figure);
+        }
     }
 }

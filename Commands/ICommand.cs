@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Patterns_Drawer
+namespace Patterns_Drawer.Commands
 {
-    enum MenuItem
+    public interface ICommand<T>
     {
-        Select,
-        Line,
-        Circle,
-        Rectangle,
-        Fill,
-        Erase
+        T Execute();
     }
 }
