@@ -22,8 +22,8 @@ namespace Patterns_Drawer.Visitor
             figure.Touch(DX,DY);
             if (figure.selected)
             {
-                figure.width += scale;
-                figure.height += scale;
+                figure.width = figure.width * (100 + scale) / 100;
+                figure.height = figure.height * (100 + scale) / 100;
                 //if (figure.width <= 0 || figure.height <= 0)
                 //{
                 //    figure.width = 0;

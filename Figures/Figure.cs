@@ -31,30 +31,13 @@ namespace Patterns_Drawer
             if (this.color == Color.Empty) this.color = color;
             if (this.filled && fill_color == Color.Empty) this.fill_color = color;
         }
-        public abstract void Draw(Graphics g, Color color);
-        public abstract void Visit(IVisitor visitor);
-        //public abstract void Dispose();
-        public abstract void Fill(Graphics g);
-        //public virtual void Move(float X, float Y)
-        //{
-        //    x = X;
-        //    y = Y;
-        //}
-        //public virtual void Resize(int a)
-        //{
-        //    w += a;
-        //    h += a;
-        //    if (w <= 0 || h <= 0)
-        //    {
-        //        w = 0;
-        //        h = 0;
-        //    }
-        //}
-
         public virtual void Touch(float X, float Y)
         {
             this.selected = (X > x && X < x + width && Y > y && Y < y + height);
         }
+        public abstract void Draw(Graphics g, Color color);
+        public abstract void Visit(IVisitor visitor);
+        public abstract void Fill(Graphics g);
         public abstract void DrawSelection(Graphics g);
 
     }

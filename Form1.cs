@@ -76,7 +76,7 @@ namespace Patterns_Drawer
             mouseState.SY = e.Y;
             mouseState.Pressed = true;
 
-            //if (!mouseState.Pressed) return;//TODO
+            //if (!mouseState.Pressed) return;
             if (creator!=null)
             {
                 drawn = creator.Create(mouseState.SX, mouseState.SY, (mouseState.EX - mouseState.SX), (mouseState.EY - mouseState.SY));
