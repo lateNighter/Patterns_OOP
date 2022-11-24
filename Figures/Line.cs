@@ -1,4 +1,4 @@
-﻿using Patterns_Drawer.Visitor;
+﻿using Patterns_Drawer.Command;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -60,15 +60,25 @@ namespace Patterns_Drawer
             g.DrawLine(pen, x, y, x + width, y + height);
         }
 
-        public override void Visit(IVisitor visitor)
+        public override void Execute(ICommand command)
         {
-            visitor.Visit(this);
+            command.Execute(this);
         }
 
         public override void Fill(Graphics g)
         {
             var pen = new Pen(fill_color);
             g.DrawLine(pen, x, y, x + width, y + height);
+        }
+
+        public override Figure Copy()
+        {
+            Line l = new Line(this.x, this.y, this.width, this.height);
+            l.color = this.color;
+            l.fill_color = this.fill_color;
+            l.selected = this.selected;
+            l.filled = this.filled;
+            return l;
         }
 
         public class LineCreator : Creator 

@@ -1,4 +1,4 @@
-﻿using Patterns_Drawer.Visitor;
+﻿using Patterns_Drawer.Command;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,11 +48,20 @@ namespace Patterns_Drawer
             g.FillRectangle(new SolidBrush(fill_color), x, y, width, height);
         }
 
-        public override void Visit(IVisitor visitor)
+        public override void Execute(ICommand command)
         {
-            visitor.Visit(this);
+            command.Execute(this);
         }
-        public class RectCreator : Creator //Rect.RectCreator
+        public override Figure Copy()
+        {
+            Rectangle r = new Rectangle(this.x, this.y, this.width, this.height);
+            r.color = this.color;
+            r.fill_color = this.fill_color;
+            r.selected = this.selected;
+            r.filled = this.filled;
+            return r;
+        }
+        public class RectCreator : Creator 
         {
             public override Figure Create(float X, float Y, float Width, float Height)
             {

@@ -1,4 +1,6 @@
-﻿using Patterns_Drawer.Visitor;
+﻿using Patterns_Drawer.Command;
+using Patterns_Drawer.CommandGroup;
+using Patterns_Drawer.Figures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +10,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace Patterns_Drawer
@@ -21,11 +24,12 @@ namespace Patterns_Drawer
 
         private Figure drawn = null;
         Color cur_color;
-        Dictionary<string, Creator> fig_dict;
-        Dictionary<string, IVisitor> visitor_dict;
+        Dictionary<string, Creator> creator_dict;
+        Dictionary<string, ICommand> command_dict;
+        Dictionary<string, IGroupCommand> group_dict;
         Creator creator;
-        IVisitor visitor;
-        //bool selection=false;
+        ICommand command;
+        IGroupCommand groupCommand;
         public Form1()
         {
             InitializeComponent();
@@ -37,58 +41,83 @@ namespace Patterns_Drawer
             Circle.CircleCreator circleCreator = new Circle.CircleCreator();
             Rectangle.RectCreator rectCreator = new Rectangle.RectCreator();
 
-            SelectVisitor selectVisitor = new SelectVisitor();
-            MoveVisitor moveVisitor = new MoveVisitor();
-            FillVisitor fillVisitor = new FillVisitor();
-            ResizeVisitor plusVisitor = new ResizeVisitor(10);
-            ResizeVisitor minusVisitor = new ResizeVisitor(-10);
-            RemoveVisitor removeVisitor = new RemoveVisitor(my_canvas);
+            SelectCommand selectCommand = new SelectCommand();
+            MoveCommand moveCommand = new MoveCommand();
+            FillCommand fillCommand = new FillCommand();
+            ResizeCommand plusCommand = new ResizeCommand(10);
+            ResizeCommand minusCommand = new ResizeCommand(-10);
+            RemoveCommand removeCommand = new RemoveCommand(my_canvas);
+            AddTextCommand addTextCommand = new AddTextCommand();
 
+            AddToGroupCommand addToGroupCommand = new AddToGroupCommand();
 
             creator = rectCreator;
-            fig_dict = new Dictionary<string, Creator> { { "line", lineCreator }, { "circle", circleCreator }, { "rect", rectCreator } };
-            visitor_dict = new Dictionary<string, IVisitor> { { "select", selectVisitor }, { "move", moveVisitor }, { "fill", fillVisitor }, { "plus", plusVisitor }, { "minus", minusVisitor }, { "erase", removeVisitor } };
+
+            creator_dict = new Dictionary<string, Creator> { { "line", lineCreator }, { "circle", circleCreator }, { "rect", rectCreator } };
+            command_dict = new Dictionary<string, ICommand> { { "select", selectCommand }, { "move", moveCommand }, { "fill", fillCommand }, { "plus", plusCommand }, { "minus", minusCommand }, { "erase", removeCommand }, { "text", addTextCommand } };
+            group_dict = new Dictionary<string, IGroupCommand> { { "group", addToGroupCommand } };
 
             mouseState = new MouseState();
 
-            cur_color = Color.Black;
+            cur_color = colorBtn.BackColor;
 
             handleToolChange("rect");
         }
         private void menuBtn_Click(object sender, EventArgs e)
         {
             string tag = ((Button)sender).Tag.ToString();
-            creator = fig_dict[tag];
+            creator = creator_dict[tag];
             handleToolChange(tag);
-            visitor = null;
+            command = null;
+            groupCommand = null;
         }
-        private void visitorBtn_Click(object sender, EventArgs e)
+        private void commandBtn_Click(object sender, EventArgs e)
         {
             string tag = ((Button)sender).Tag.ToString();
-            visitor = visitor_dict[tag];
+            command = command_dict[tag];
             handleToolChange(tag);
             creator = null;
+            groupCommand = null;
         }
-
+        private void groupBtn_Click(object sender, EventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+            groupCommand = group_dict[tag];
+            handleToolChange(tag);
+            creator = null;
+            command = null;
+        }
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
             mouseState.SX = e.X;
             mouseState.SY = e.Y;
             mouseState.Pressed = true;
 
-            //if (!mouseState.Pressed) return;
             if (creator!=null)
             {
                 drawn = creator.Create(mouseState.SX, mouseState.SY, (mouseState.EX - mouseState.SX), (mouseState.EY - mouseState.SY));
             }
 
-            if (visitor != null)
+            if (groupCommand != null)
             {
-                visitor.SetXY(mouseState.SX, mouseState.SY);
-                foreach (Figure figure in my_canvas.Figures.ToArray())
+                groupCommand.SetStatus(new List<object> { mouseState.SX, mouseState.SY });
+                groupCommand.Execute(my_canvas);
+                canvas.Refresh();
+                undoRedo.SetStateForUndoRedo();
+            }
+
+            if (command != null)
+            {
+                command.SetStatus(new List<object> { mouseState.SX, mouseState.SY, cur_color, textBox1.Text, my_canvas });
+                //for (int i = 0; i < my_canvas.Figures.Count; i++)
+                //{
+                //    command.Execute(my_canvas.Figures[i]);
+                //}
+                foreach (Figure figure in my_canvas.Figures.ToArray())//
                 {
-                    visitor.Visit(figure);
+                    command.Execute(figure);
                 }
+                //my_canvas.Figures[0] = new TextDecorator(my_canvas.Figures[0], "dhfghjkj");
                 canvas.Refresh();
                 undoRedo.SetStateForUndoRedo();
             }
@@ -96,10 +125,11 @@ namespace Patterns_Drawer
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!mouseState.Pressed) return;
+
             mouseState.EX = e.X;
             mouseState.EY = e.Y;
 
-            if (!mouseState.Pressed) return;
             if (creator != null)
             {
                 drawn = creator.Create(mouseState.SX, mouseState.SY, (mouseState.EX - mouseState.SX), (mouseState.EY - mouseState.SY));
@@ -119,74 +149,7 @@ namespace Patterns_Drawer
             drawn = null;
             mouseState.Reset();
         }
-        private void canvas_MouseClick(object sender, MouseEventArgs e)
-        {
-            //switch (menuItem)
-            //{
-            //    case MenuItem.Select:
-            //        bool found = false;
 
-            //        foreach (Figure figure in figures)
-            //        {
-            //            if (figure.GetType() == typeof(Rectangle))
-            //            {
-            //                Rectangle f = (Rectangle)figure;
-            //                if (!found && e.X >= f.x && e.X <= (f.x + f.width) && e.Y >= f.y && e.Y <= (f.y + f.height))
-            //                {
-            //                    figure.selected = true;
-            //                    found = true;
-            //                }
-            //                else
-            //                    figure.selected = false;
-            //            }
-
-            //            if (figure.GetType() == typeof(Circle))
-            //            {
-            //                Circle f = (Circle)figure;
-            //                if (!found && e.X >= f.x && e.X <= (f.x + f.width) && e.Y >= f.y && e.Y <= (f.y + f.height))
-            //                {
-            //                    figure.selected = true;
-            //                    found = true;
-            //                }
-            //                else
-            //                    figure.selected = false;
-            //            }
-            //        }
-            //        break;
-            //    case MenuItem.Line:
-            //        break;
-            //    case MenuItem.Circle:
-            //        break;
-            //    case MenuItem.Rectangle:
-            //        break;
-            //    case MenuItem.Fill:
-            //        break;
-            //    case MenuItem.Erase:
-            //        break;
-            //    default:
-            //        break;
-
-            //}            
-        }
-
-        private void clearBtn_Click(object sender, EventArgs e)
-        {
-            //g.Clear(Color.White);
-            //canvas.Image = bm;
-            //index = 0;
-
-        }
-
-        private void saveBtn_Click(object sender, EventArgs e)
-        {
-            //saveFileDialog.ShowDialog();
-            //saveFileDialog.Filter = "Image(*.jpg)|*.jpg|(*.*|*.*";
-            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    Bitmap btm = bm.Clone(new Rectangle(0, 0, canvas.Width, canvas.Height), bm.PixelFormat);
-            //    btm.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
-            //}
-        }
 
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
@@ -198,9 +161,9 @@ namespace Patterns_Drawer
                     drawn.Draw(g, cur_color);
 
                 foreach (Figure figure in my_canvas.Figures)
-                    figure.Draw(g, cur_color);//figure.color
+                    figure.Draw(g, figure.color);//cur_color
             }
-            catch { }
+            catch { }   
         }
 
         private void colorBtn_Click(object sender, EventArgs e)
@@ -214,11 +177,14 @@ namespace Patterns_Drawer
         {
             pointerBtn.BackColor = panel1.BackColor;
             moveBtn.BackColor = panel1.BackColor;
+            groupBtn.BackColor = panel1.BackColor;
+
             lineBtn.BackColor = panel1.BackColor;
             circleBtn.BackColor = panel1.BackColor;
             squareBtn.BackColor = panel1.BackColor;
             fillBtn.BackColor = panel1.BackColor;
             eraserBtn.BackColor = panel1.BackColor;
+            addTextBtn.BackColor = panel1.BackColor;
 
             plusBtn.BackColor = panel1.BackColor;
             minusBtn.BackColor = panel1.BackColor;
@@ -239,6 +205,5 @@ namespace Patterns_Drawer
             canvas.Refresh();
         }
 
-        
     }
 }

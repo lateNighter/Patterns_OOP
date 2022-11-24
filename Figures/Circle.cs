@@ -1,4 +1,4 @@
-﻿using Patterns_Drawer.Visitor;
+﻿using Patterns_Drawer.Command;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,9 +28,9 @@ namespace Patterns_Drawer
             this.selected = ((Math.Pow(X - (x + width / 2), 2) + Math.Pow(Y - (y + height / 2), 2)) <= Math.Pow(width / 2, 2));
         }
 
-        public override void Visit(IVisitor visitor)
+        public override void Execute(ICommand command)
         {
-            visitor.Visit(this);
+            command.Execute(this);
         }
 
         public override void DrawSelection(Graphics g)
@@ -56,6 +56,16 @@ namespace Patterns_Drawer
         public override void Fill(Graphics g)
         {
             g.FillEllipse(new SolidBrush(fill_color), this.x, this.y, this.width, this.height);
+        }
+
+        public override Figure Copy()
+        {
+            Circle c = new Circle(this.x, this.y, this.width, this.height);
+            c.color = this.color;
+            c.fill_color = this.fill_color;
+            c.selected = this.selected;
+            c.filled = this.filled;
+            return c; 
         }
 
         public class CircleCreator : Creator 

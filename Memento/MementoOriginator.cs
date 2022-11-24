@@ -24,7 +24,7 @@ namespace Patterns_Drawer
 
             foreach (Figure item in _Container.Figures)
             {
-                _ContainerState.Add(item);
+                _ContainerState.Add(item.Copy());
             }
 
             return new Memento(_ContainerState);
@@ -47,7 +47,7 @@ namespace Patterns_Drawer
 
             foreach (Figure item in memento.ContainerState)
             {
-                _ContainerState.Add(item);
+                _ContainerState.Add(item.Copy());
                 
             }
 

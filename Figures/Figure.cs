@@ -1,10 +1,11 @@
-﻿using Patterns_Drawer.Visitor;
+﻿using Patterns_Drawer.Command;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Patterns_Drawer
 {
@@ -26,17 +27,33 @@ namespace Patterns_Drawer
             width = Width;
             height = Height;
         }
+        public Figure() { }
         protected void SetColor(Color color)
         {
             if (this.color == Color.Empty) this.color = color;
-            if (this.filled && fill_color == Color.Empty) this.fill_color = color;
         }
         public virtual void Touch(float X, float Y)
         {
             this.selected = (X > x && X < x + width && Y > y && Y < y + height);
         }
+        public virtual void Move(float X, float Y)
+        {
+            this.x = X;
+            this.y = Y;
+        }
+        public virtual void Resize(int scale)
+        {
+            this.width = this.width * (100 + scale) / 100;
+            this.height = this.height * (100 + scale) / 100;
+            //if (figure.width <= 0 || figure.height <= 0)
+            //{
+            //    figure.width = 0;
+            //    figure.height = 0;
+            //}
+        }
+        public abstract Figure Copy();
         public abstract void Draw(Graphics g, Color color);
-        public abstract void Visit(IVisitor visitor);
+        public abstract void Execute(ICommand command);
         public abstract void Fill(Graphics g);
         public abstract void DrawSelection(Graphics g);
 

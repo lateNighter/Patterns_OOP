@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 
-namespace Patterns_Drawer.Visitor
+namespace Patterns_Drawer.Command
 {
-    public interface IVisitor
+    public interface ICommand
     {
-        void Visit(Figure figure);
-        void SetXY(float x, float y);
+        void Execute(Figure figure);
+        void SetStatus(List<object> status);
     }
 }

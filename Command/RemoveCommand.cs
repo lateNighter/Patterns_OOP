@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Patterns_Drawer.Visitor
+namespace Patterns_Drawer.Command
 {
-    class RemoveVisitor : IVisitor
+    class RemoveCommand : ICommand
     {
-        public float DX { get; set; }
-        public float DY { get; set; }
+        private float DX;
+        private float DY;
         private Canvas _canvas;
 
-        public RemoveVisitor(Canvas canvas) 
+        public RemoveCommand(Canvas canvas) 
         { 
             this._canvas = canvas;
         }
 
-        public void Visit(Figure figure)
+        public void Execute(Figure figure)
         {
             figure.Touch(DX, DY);
             if (figure.selected)
@@ -26,10 +26,10 @@ namespace Patterns_Drawer.Visitor
             }
         }
 
-        public void SetXY(float x, float y)
+        public void SetStatus(List<object> status)
         {
-            this.DX = x;
-            this.DY = y;
+            this.DX = float.Parse(status[0].ToString());
+            this.DY = float.Parse(status[1].ToString());
         }
     }
 }
