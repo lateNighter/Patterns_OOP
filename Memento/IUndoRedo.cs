@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Patterns_Drawer
 {
-    enum MenuItem
+    interface IUndoRedo
     {
-        Select,
-        Line,
-        Circle,
-        Rectangle,
-        Fill,
-        Erase
+        void Undo(int level);
+        void Redo(int level);
+        void SetStateForUndoRedo();
     }
 }

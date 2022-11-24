@@ -30,9 +30,16 @@ namespace Patterns_Drawer
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.colorBtn = new System.Windows.Forms.Button();
+            this.cd = new System.Windows.Forms.ColorDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.addTextBtn = new System.Windows.Forms.Button();
+            this.groupBtn = new System.Windows.Forms.Button();
+            this.moveBtn = new System.Windows.Forms.Button();
             this.minusBtn = new System.Windows.Forms.Button();
             this.plusBtn = new System.Windows.Forms.Button();
-            this.reduBtn = new System.Windows.Forms.Button();
+            this.redoBtn = new System.Windows.Forms.Button();
             this.undoBtn = new System.Windows.Forms.Button();
             this.lineBtn = new System.Windows.Forms.Button();
             this.eraserBtn = new System.Windows.Forms.Button();
@@ -40,11 +47,6 @@ namespace Patterns_Drawer
             this.fillBtn = new System.Windows.Forms.Button();
             this.squareBtn = new System.Windows.Forms.Button();
             this.circleBtn = new System.Windows.Forms.Button();
-            this.colorBtn = new System.Windows.Forms.Button();
-            this.clearBtn = new System.Windows.Forms.Button();
-            this.saveBtn = new System.Windows.Forms.Button();
-            this.cd = new System.Windows.Forms.ColorDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.canvas = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
@@ -53,9 +55,13 @@ namespace Patterns_Drawer
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.addTextBtn);
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.groupBtn);
+            this.panel1.Controls.Add(this.moveBtn);
             this.panel1.Controls.Add(this.minusBtn);
             this.panel1.Controls.Add(this.plusBtn);
-            this.panel1.Controls.Add(this.reduBtn);
+            this.panel1.Controls.Add(this.redoBtn);
             this.panel1.Controls.Add(this.undoBtn);
             this.panel1.Controls.Add(this.lineBtn);
             this.panel1.Controls.Add(this.eraserBtn);
@@ -64,13 +70,83 @@ namespace Patterns_Drawer
             this.panel1.Controls.Add(this.squareBtn);
             this.panel1.Controls.Add(this.circleBtn);
             this.panel1.Controls.Add(this.colorBtn);
-            this.panel1.Controls.Add(this.clearBtn);
-            this.panel1.Controls.Add(this.saveBtn);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1333, 48);
             this.panel1.TabIndex = 0;
+            // 
+            // colorBtn
+            // 
+            this.colorBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.colorBtn.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.colorBtn.FlatAppearance.BorderSize = 3;
+            this.colorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.colorBtn.ForeColor = System.Drawing.Color.Black;
+            this.colorBtn.Location = new System.Drawing.Point(19, 6);
+            this.colorBtn.Name = "colorBtn";
+            this.colorBtn.Size = new System.Drawing.Size(35, 35);
+            this.colorBtn.TabIndex = 2;
+            this.colorBtn.UseVisualStyleBackColor = false;
+            this.colorBtn.Click += new System.EventHandler(this.colorBtn_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(964, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 16;
+            // 
+            // addTextBtn
+            // 
+            this.addTextBtn.BackColor = System.Drawing.Color.Transparent;
+            this.addTextBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.text;
+            this.addTextBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.addTextBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.addTextBtn.FlatAppearance.BorderSize = 0;
+            this.addTextBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addTextBtn.ForeColor = System.Drawing.Color.Black;
+            this.addTextBtn.Location = new System.Drawing.Point(918, 5);
+            this.addTextBtn.Name = "addTextBtn";
+            this.addTextBtn.Size = new System.Drawing.Size(40, 40);
+            this.addTextBtn.TabIndex = 17;
+            this.addTextBtn.Tag = "text";
+            this.addTextBtn.UseVisualStyleBackColor = false;
+            this.addTextBtn.Click += new System.EventHandler(this.commandBtn_Click);
+            // 
+            // groupBtn
+            // 
+            this.groupBtn.BackColor = System.Drawing.Color.Transparent;
+            this.groupBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.net;
+            this.groupBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.groupBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.groupBtn.FlatAppearance.BorderSize = 0;
+            this.groupBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBtn.ForeColor = System.Drawing.Color.Black;
+            this.groupBtn.Location = new System.Drawing.Point(216, 3);
+            this.groupBtn.Name = "groupBtn";
+            this.groupBtn.Size = new System.Drawing.Size(40, 40);
+            this.groupBtn.TabIndex = 15;
+            this.groupBtn.Tag = "group";
+            this.groupBtn.UseVisualStyleBackColor = false;
+            this.groupBtn.Click += new System.EventHandler(this.groupBtn_Click);
+            // 
+            // moveBtn
+            // 
+            this.moveBtn.BackColor = System.Drawing.Color.Transparent;
+            this.moveBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.move;
+            this.moveBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.moveBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.moveBtn.FlatAppearance.BorderSize = 0;
+            this.moveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.moveBtn.ForeColor = System.Drawing.Color.Black;
+            this.moveBtn.Location = new System.Drawing.Point(158, 3);
+            this.moveBtn.Name = "moveBtn";
+            this.moveBtn.Size = new System.Drawing.Size(40, 40);
+            this.moveBtn.TabIndex = 14;
+            this.moveBtn.Tag = "move";
+            this.moveBtn.UseVisualStyleBackColor = false;
+            this.moveBtn.Click += new System.EventHandler(this.commandBtn_Click);
             // 
             // minusBtn
             // 
@@ -81,11 +157,13 @@ namespace Patterns_Drawer
             this.minusBtn.FlatAppearance.BorderSize = 0;
             this.minusBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minusBtn.ForeColor = System.Drawing.Color.Black;
-            this.minusBtn.Location = new System.Drawing.Point(860, 3);
+            this.minusBtn.Location = new System.Drawing.Point(739, 3);
             this.minusBtn.Name = "minusBtn";
             this.minusBtn.Size = new System.Drawing.Size(40, 40);
             this.minusBtn.TabIndex = 13;
+            this.minusBtn.Tag = "minus";
             this.minusBtn.UseVisualStyleBackColor = false;
+            this.minusBtn.Click += new System.EventHandler(this.commandBtn_Click);
             // 
             // plusBtn
             // 
@@ -96,26 +174,29 @@ namespace Patterns_Drawer
             this.plusBtn.FlatAppearance.BorderSize = 0;
             this.plusBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.plusBtn.ForeColor = System.Drawing.Color.Black;
-            this.plusBtn.Location = new System.Drawing.Point(814, 3);
+            this.plusBtn.Location = new System.Drawing.Point(693, 3);
             this.plusBtn.Name = "plusBtn";
             this.plusBtn.Size = new System.Drawing.Size(40, 40);
             this.plusBtn.TabIndex = 12;
+            this.plusBtn.Tag = "plus";
             this.plusBtn.UseVisualStyleBackColor = false;
+            this.plusBtn.Click += new System.EventHandler(this.commandBtn_Click);
             // 
-            // reduBtn
+            // redoBtn
             // 
-            this.reduBtn.BackColor = System.Drawing.Color.Transparent;
-            this.reduBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.redo;
-            this.reduBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.reduBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.reduBtn.FlatAppearance.BorderSize = 0;
-            this.reduBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reduBtn.ForeColor = System.Drawing.Color.Black;
-            this.reduBtn.Location = new System.Drawing.Point(1281, 3);
-            this.reduBtn.Name = "reduBtn";
-            this.reduBtn.Size = new System.Drawing.Size(40, 40);
-            this.reduBtn.TabIndex = 11;
-            this.reduBtn.UseVisualStyleBackColor = false;
+            this.redoBtn.BackColor = System.Drawing.Color.Transparent;
+            this.redoBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.redo;
+            this.redoBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.redoBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.redoBtn.FlatAppearance.BorderSize = 0;
+            this.redoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.redoBtn.ForeColor = System.Drawing.Color.Black;
+            this.redoBtn.Location = new System.Drawing.Point(1281, 3);
+            this.redoBtn.Name = "redoBtn";
+            this.redoBtn.Size = new System.Drawing.Size(40, 40);
+            this.redoBtn.TabIndex = 11;
+            this.redoBtn.UseVisualStyleBackColor = false;
+            this.redoBtn.Click += new System.EventHandler(this.redoBtn_Click);
             // 
             // undoBtn
             // 
@@ -131,6 +212,7 @@ namespace Patterns_Drawer
             this.undoBtn.Size = new System.Drawing.Size(40, 40);
             this.undoBtn.TabIndex = 10;
             this.undoBtn.UseVisualStyleBackColor = false;
+            this.undoBtn.Click += new System.EventHandler(this.undoBtn_Click);
             // 
             // lineBtn
             // 
@@ -141,7 +223,7 @@ namespace Patterns_Drawer
             this.lineBtn.FlatAppearance.BorderSize = 0;
             this.lineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lineBtn.ForeColor = System.Drawing.Color.Black;
-            this.lineBtn.Location = new System.Drawing.Point(409, 3);
+            this.lineBtn.Location = new System.Drawing.Point(325, 3);
             this.lineBtn.Name = "lineBtn";
             this.lineBtn.Size = new System.Drawing.Size(40, 40);
             this.lineBtn.TabIndex = 9;
@@ -158,13 +240,13 @@ namespace Patterns_Drawer
             this.eraserBtn.FlatAppearance.BorderSize = 0;
             this.eraserBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.eraserBtn.ForeColor = System.Drawing.Color.Black;
-            this.eraserBtn.Location = new System.Drawing.Point(655, 3);
+            this.eraserBtn.Location = new System.Drawing.Point(571, 3);
             this.eraserBtn.Name = "eraserBtn";
             this.eraserBtn.Size = new System.Drawing.Size(40, 40);
             this.eraserBtn.TabIndex = 8;
             this.eraserBtn.Tag = "erase";
             this.eraserBtn.UseVisualStyleBackColor = false;
-            this.eraserBtn.Click += new System.EventHandler(this.menuBtn_Click);
+            this.eraserBtn.Click += new System.EventHandler(this.commandBtn_Click);
             // 
             // pointerBtn
             // 
@@ -175,13 +257,13 @@ namespace Patterns_Drawer
             this.pointerBtn.FlatAppearance.BorderSize = 0;
             this.pointerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pointerBtn.ForeColor = System.Drawing.Color.Black;
-            this.pointerBtn.Location = new System.Drawing.Point(281, 3);
+            this.pointerBtn.Location = new System.Drawing.Point(112, 3);
             this.pointerBtn.Name = "pointerBtn";
             this.pointerBtn.Size = new System.Drawing.Size(40, 40);
             this.pointerBtn.TabIndex = 7;
             this.pointerBtn.Tag = "select";
             this.pointerBtn.UseVisualStyleBackColor = false;
-            this.pointerBtn.Click += new System.EventHandler(this.menuBtn_Click);
+            this.pointerBtn.Click += new System.EventHandler(this.commandBtn_Click);
             // 
             // fillBtn
             // 
@@ -192,13 +274,13 @@ namespace Patterns_Drawer
             this.fillBtn.FlatAppearance.BorderSize = 0;
             this.fillBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fillBtn.ForeColor = System.Drawing.Color.Black;
-            this.fillBtn.Location = new System.Drawing.Point(591, 3);
+            this.fillBtn.Location = new System.Drawing.Point(507, 3);
             this.fillBtn.Name = "fillBtn";
             this.fillBtn.Size = new System.Drawing.Size(40, 40);
             this.fillBtn.TabIndex = 6;
             this.fillBtn.Tag = "fill";
             this.fillBtn.UseVisualStyleBackColor = false;
-            this.fillBtn.Click += new System.EventHandler(this.menuBtn_Click);
+            this.fillBtn.Click += new System.EventHandler(this.commandBtn_Click);
             // 
             // squareBtn
             // 
@@ -209,7 +291,7 @@ namespace Patterns_Drawer
             this.squareBtn.FlatAppearance.BorderSize = 0;
             this.squareBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.squareBtn.ForeColor = System.Drawing.Color.Black;
-            this.squareBtn.Location = new System.Drawing.Point(527, 3);
+            this.squareBtn.Location = new System.Drawing.Point(443, 3);
             this.squareBtn.Name = "squareBtn";
             this.squareBtn.Size = new System.Drawing.Size(40, 40);
             this.squareBtn.TabIndex = 5;
@@ -226,59 +308,13 @@ namespace Patterns_Drawer
             this.circleBtn.FlatAppearance.BorderSize = 0;
             this.circleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.circleBtn.ForeColor = System.Drawing.Color.Black;
-            this.circleBtn.Location = new System.Drawing.Point(473, 3);
+            this.circleBtn.Location = new System.Drawing.Point(389, 3);
             this.circleBtn.Name = "circleBtn";
             this.circleBtn.Size = new System.Drawing.Size(40, 40);
             this.circleBtn.TabIndex = 4;
             this.circleBtn.Tag = "circle";
             this.circleBtn.UseVisualStyleBackColor = false;
             this.circleBtn.Click += new System.EventHandler(this.menuBtn_Click);
-            // 
-            // colorBtn
-            // 
-            this.colorBtn.BackColor = System.Drawing.Color.Black;
-            this.colorBtn.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.colorBtn.FlatAppearance.BorderSize = 3;
-            this.colorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.colorBtn.ForeColor = System.Drawing.Color.Black;
-            this.colorBtn.Location = new System.Drawing.Point(176, 6);
-            this.colorBtn.Name = "colorBtn";
-            this.colorBtn.Size = new System.Drawing.Size(35, 35);
-            this.colorBtn.TabIndex = 2;
-            this.colorBtn.UseVisualStyleBackColor = false;
-            this.colorBtn.Click += new System.EventHandler(this.colorBtn_Click);
-            // 
-            // clearBtn
-            // 
-            this.clearBtn.BackColor = System.Drawing.Color.Transparent;
-            this.clearBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.clear;
-            this.clearBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.clearBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.clearBtn.FlatAppearance.BorderSize = 0;
-            this.clearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clearBtn.ForeColor = System.Drawing.Color.Black;
-            this.clearBtn.Location = new System.Drawing.Point(67, 3);
-            this.clearBtn.Name = "clearBtn";
-            this.clearBtn.Size = new System.Drawing.Size(40, 40);
-            this.clearBtn.TabIndex = 1;
-            this.clearBtn.UseVisualStyleBackColor = false;
-            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
-            // 
-            // saveBtn
-            // 
-            this.saveBtn.BackColor = System.Drawing.Color.Transparent;
-            this.saveBtn.BackgroundImage = global::Patterns_Drawer.Properties.Resources.save;
-            this.saveBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.saveBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.saveBtn.FlatAppearance.BorderSize = 0;
-            this.saveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveBtn.ForeColor = System.Drawing.Color.Black;
-            this.saveBtn.Location = new System.Drawing.Point(3, 3);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(40, 40);
-            this.saveBtn.TabIndex = 0;
-            this.saveBtn.UseVisualStyleBackColor = false;
-            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // canvas
             // 
@@ -290,7 +326,6 @@ namespace Patterns_Drawer
             this.canvas.TabIndex = 1;
             this.canvas.TabStop = false;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
-            this.canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseClick);
             this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
@@ -305,6 +340,7 @@ namespace Patterns_Drawer
             this.Name = "Form1";
             this.Text = "Ы";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.ResumeLayout(false);
 
@@ -317,8 +353,6 @@ namespace Patterns_Drawer
         private System.Windows.Forms.Button squareBtn;
         private System.Windows.Forms.Button circleBtn;
         private System.Windows.Forms.Button colorBtn;
-        private System.Windows.Forms.Button clearBtn;
-        private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.ColorDialog cd;
         private System.Windows.Forms.Button pointerBtn;
         private System.Windows.Forms.PictureBox canvas;
@@ -328,7 +362,11 @@ namespace Patterns_Drawer
         private System.Windows.Forms.Button undoBtn;
         private System.Windows.Forms.Button minusBtn;
         private System.Windows.Forms.Button plusBtn;
-        private System.Windows.Forms.Button reduBtn;
+        private System.Windows.Forms.Button redoBtn;
+        private System.Windows.Forms.Button moveBtn;
+        private System.Windows.Forms.Button groupBtn;
+        private System.Windows.Forms.Button addTextBtn;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
